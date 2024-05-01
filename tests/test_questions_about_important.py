@@ -2,10 +2,12 @@ from pages.main_page import MainPageAction
 from data import AnswerOriginal
 import pytest
 import time
+import allure
 
 
 class TestQuestionsText:
-
+    @allure.title("Тестируем выпадающий список")
+    @allure.description("Тест для проверки выпадающего списка, текст соответствует при раскрытии")
     @pytest.mark.parametrize("questions, hint, text", AnswerOriginal.questions_list)
     def test_questions_drop_down_list(self, browser, questions, hint, text):
         main_page = MainPageAction(browser)

@@ -1,5 +1,6 @@
 from pages.base_page import BasePage
 from selenium.webdriver.common.by import By
+import allure
 
 class MainPageLocators:
     ORDER_BUTTON_TOP = (By.XPATH,"//button[@class='Button_Button__ra12g' and text()='Заказать']") #верхняя кнопка заказа
@@ -31,34 +32,34 @@ class LogotypsLocators:
 
 
 class MainPageAction(BasePage):
-
+    @allure.step("Метод кликает по кнопке Принять Куки")
     def click_close_cookie(self):
         return self.find_element(MainPageLocators.COOKIE_BUTTON).click()
-
+    @allure.step("Клик по верхней кнопке Заказать")
     def click_order_button_top(self):
         return self.find_element(MainPageLocators.ORDER_BUTTON_TOP, time=4).click()
-
+    @allure.step("Клик по нижней кнопке Заказать")
     def click_order_button_down(self):
         return self.find_element(MainPageLocators.ORDER_BUTTON_DOWN, time=4).click()
-
+    @allure.step("Клик по логотипу Самоката")
     def click_scooter_logo(self):
         logo_1 = self.find_element(LogotypsLocators.SCOOTER_LOGO)
         logo_1.click()
-
+    @allure.step("Клик по логотипу Дзена")
     def click_dzen_logo(self):
         logo_2 = self.find_element(LogotypsLocators.DZEN_LOGO)
         logo_2.click()
-
+    @allure.step("Переход к списку вопросов")
     def go_to_questions_list(self, browser):
         self.go_to_site()
         self.click_close_cookie()
         element = browser.find_element(By.XPATH, "//div[@class='Home_SubHeader__zwi_E' and text()='Вопросы о важном']")
         browser.execute_script("arguments[0].scrollIntoView();", element)
-
+    @allure.step("Клик по выпадающему листу")
     def click_drop_down_list(self, question):
         click_list = self.find_element(question)
         click_list.click()
-
+    @allure.step("Получить текст из развернутого выпадающего списка")
     def get_text_from_drop_down_list(self, hint):
         questions_text = self.find_element(hint).text
         return questions_text
