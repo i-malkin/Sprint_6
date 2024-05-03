@@ -65,6 +65,10 @@ class MainPageAction(BasePage):
         questions_text = self.find_element(hint).text
         return questions_text
 
+    def go_to_down_order_button(self, driver):
+         element = self.find_element(MainPageLocators.ORDER_BUTTON_DOWN)
+         driver.execute_script("arguments[0].scrollIntoView();", element)
+
 
 
 
