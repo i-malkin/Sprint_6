@@ -55,12 +55,3 @@ class TestOrderScooter:
         print(f'Итак, вот что имеем: {text_header}')
         assert 'Заказ оформлен' in text_header
 
-
-
-
-
-        # order_page.preset_for_test_form(RegistrationData.FIRST_NAME_1,
-        #                                     RegistrationData.LAST_NAME_1,
-        #                                     RegistrationData.ADDRESS_1,
-        #                                     RegistrationData.PHONE_1)
-
