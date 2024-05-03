@@ -6,6 +6,7 @@ class MainPageLocators:
     ORDER_BUTTON_TOP = (By.XPATH,"//button[@class='Button_Button__ra12g' and text()='Заказать']") #верхняя кнопка заказа
     ORDER_BUTTON_DOWN = (By.XPATH,"//button[@class='Button_Button__ra12g Button_Middle__1CSJM']") #нижнаа кнопка заказа
     COOKIE_BUTTON = (By.CLASS_NAME, "App_CookieButton__3cvqF")
+    QUESTION_LIST = (By.XPATH, "//div[@class='Home_SubHeader__zwi_E' and text()='Вопросы о важном']")
 class QuestionsLocator:
     QUESTION_1 = (By.ID, 'accordion__heading-0')
     QUESTION_2 = (By.ID, 'accordion__heading-1')
@@ -50,11 +51,11 @@ class MainPageAction(BasePage):
         logo_2 = self.find_element(LogotypsLocators.DZEN_LOGO)
         logo_2.click()
     @allure.step("Переход к списку вопросов")
-    def go_to_questions_list(self, browser):
+    def go_to_questions_list(self, driver):
         self.go_to_site()
         self.click_close_cookie()
-        element = browser.find_element(By.XPATH, "//div[@class='Home_SubHeader__zwi_E' and text()='Вопросы о важном']")
-        browser.execute_script("arguments[0].scrollIntoView();", element)
+        element = self.find_element(MainPageLocators.QUESTION_LIST)
+        driver.execute_script("arguments[0].scrollIntoView();", element)
     @allure.step("Клик по выпадающему листу")
     def click_drop_down_list(self, question):
         click_list = self.find_element(question)
