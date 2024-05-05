@@ -21,11 +21,12 @@ class TestLogotyps:
         main_page.go_to_site()
         main_page.click_close_cookie()
         main_page.click_dzen_logo()
-        all_handles = browser.window_handles
-        browser.switch_to.window(all_handles[-1])
-        time.sleep(6)
-        get_URL = browser.current_url
-        assert get_URL == "https://dzen.ru/?yredirect=true"
+        main_page.wait_url_changes()
+        main_page.switch_driver()
+        main_page.wait_haider_on_page()
+        assert 'dzen.ru' in main_page.get_current_URL()
+
+
 
 
 

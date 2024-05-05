@@ -1,5 +1,7 @@
 from pages.base_page import BasePage
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 import allure
 
 class MainPageLocators:
@@ -64,10 +66,12 @@ class MainPageAction(BasePage):
     def get_text_from_drop_down_list(self, hint):
         questions_text = self.find_element(hint).text
         return questions_text
-
+    @allure.step("Переход к кнопке заказа расположенной внизу")
     def go_to_down_order_button(self, driver):
          element = self.find_element(MainPageLocators.ORDER_BUTTON_DOWN)
          driver.execute_script("arguments[0].scrollIntoView();", element)
+
+
 
 
 

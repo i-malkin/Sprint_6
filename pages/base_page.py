@@ -2,6 +2,10 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import allure
 
+class BaseData:
+    URL_DZEN = "https://dzen.ru/?yredirect=true"
+    TITLE = "Дзен"
+
 
 class BasePage:
     @allure.step("Инициализация драйвера")
@@ -23,4 +27,15 @@ class BasePage:
         get_url = self.driver.current_url
         return get_url
 
+    @allure.step("Переключаем двайвер")
+    def switch_driver(self):
+        self.driver.switch_to.window(self.driver.window_handles[-1])
+
+    @allure.step("Ожидаем появление заголовка на странице")
+    def wait_haider_on_page(self):
+        WebDriverWait(self.driver, 10).until(EC.title_is(BaseData.TITLE))
+
+    @allure.step("Ожидаем, пока не сменится страница")
+    def wait_url_changes(self):
+        WebDriverWait(self.driver, 10).until(EC.url_changes(BaseData.URL_DZEN))
 
