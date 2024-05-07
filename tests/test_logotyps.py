@@ -1,4 +1,5 @@
 from pages.main_page import MainPageAction
+from pages.base_page import BaseData
 import time
 import allure
 
@@ -12,7 +13,7 @@ class TestLogotyps:
          main_page.click_order_button_top()
          main_page.click_scooter_logo()
          scooter_link = main_page.get_current_URL()
-         assert scooter_link == main_page.base_url
+         assert scooter_link == BaseData.MAIN_PAGE_URL
 
     @allure.title("Тестируем клик по заголовку Яндекс")
     @allure.description("Тест проверки перехода на главную страницу Дзена")

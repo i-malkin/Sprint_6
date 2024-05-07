@@ -1,17 +1,21 @@
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.by import By
 import allure
 
 class BaseData:
     URL_DZEN = "https://dzen.ru/?yredirect=true"
     TITLE = "Дзен"
+    MAIN_PAGE_URL = "https://qa-scooter.praktikum-services.ru/"
+    QUESTION_LIST = (By.XPATH, "//div[@class='Home_SubHeader__zwi_E' and text()='Вопросы о важном']")
+    ORDER_BUTTON_DOWN = (By.XPATH, "//button[@class='Button_Button__ra12g Button_Middle__1CSJM']")
 
 
 class BasePage:
     @allure.step("Инициализация драйвера")
     def __init__(self, driver):
         self.driver = driver
-        self.base_url = "https://qa-scooter.praktikum-services.ru/"
+
 
     @allure.step ("Поиск элемента, в случае успеха возвращает его")
     def find_element(self, locator,time=10):
@@ -20,7 +24,7 @@ class BasePage:
 
     @allure.step("Переход на сайт")
     def go_to_site(self):
-        return self.driver.get(self.base_url)
+        return self.driver.get(BaseData.MAIN_PAGE_URL)
 
     @allure.step("Получение текущего УРЛ")
     def get_current_URL(self):
@@ -38,4 +42,16 @@ class BasePage:
     @allure.step("Ожидаем, пока не сменится страница")
     def wait_url_changes(self):
         WebDriverWait(self.driver, 10).until(EC.url_changes(BaseData.URL_DZEN))
+
+    @allure.step("Прокрутка страницу к элементу Вопросы о главном")
+    def scroll_to_list_questions(self, driver):
+        element = self.find_element(BaseData.QUESTION_LIST)
+        driver.execute_script("arguments[0].scrollIntoView();", element)
+
+
+    @allure.step("Переход к кнопке заказа расположенной внизу")
+    def go_to_down_order_button(self, driver):
+         element = self.find_element(BaseData.ORDER_BUTTON_DOWN)
+         driver.execute_script("arguments[0].scrollIntoView();", element)
+
 
