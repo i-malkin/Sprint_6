@@ -15,7 +15,6 @@ class TestQuestionsText:
         main_page.scroll_to_list_questions(browser)
         main_page.click_drop_down_list(questions)
         answer = main_page.get_text_from_drop_down_list(hint)
-        print(answer)
         assert text in answer
 
 
